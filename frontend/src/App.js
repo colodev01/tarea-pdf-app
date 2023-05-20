@@ -1,10 +1,14 @@
 import './App.css';
-import Navbar from './components/Navbar.jsx';
-import Dropzone from './components/Dropzone.jsx';
+import Navbar from './components/Navbar.js';
+import Card from './components/Card.js'
 
 function App() {
   return (
-    <Navbar/>
+    <div className='App'>
+      <Navbar/>
+      <Card/>
+    </div>
+    
   );
 }
 
