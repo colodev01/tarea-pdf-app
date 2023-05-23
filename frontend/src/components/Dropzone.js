@@ -17,7 +17,7 @@ export default function PdfDropzone() {
     }
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop,accept: { "application/pdf": [] } });
 
   if (pdfFile) {
     return (
