@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -23,19 +22,19 @@ export default function ButtonAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <img src={img} alt='poder_judicial_img' width={190} height={45}/>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginRight: 24 }}>
+          <img src={img} alt='poder_judicial_img' width={200} height={50}/>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Firma Ciudadana
           </Typography>
           <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            color="inherit"
-                        >
+                      size="large"
+                      aria-label="account of current user"
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                      color="inherit"
+                      >
                             <AccountCircle />
-                        </IconButton>
+           </IconButton>
         </Toolbar>
       </AppBar>
     </Box>
