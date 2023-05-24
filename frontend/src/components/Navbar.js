@@ -23,7 +23,7 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <img src={img} alt='poder_judicial_img' width={200} height={50}/>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "center" }}>
             Firma Ciudadana
           </Typography>
           <IconButton

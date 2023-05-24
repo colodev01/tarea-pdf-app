@@ -1,31 +1,45 @@
-import React, { useState } from "react";
-import Viewer from "react-viewer";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Typography } from "@mui/material";
-import cloudImg from "../images/image_processing20210621-18852-kr2kez.png";
-import { PDFViewer } from "@react-pdf/renderer";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
-export default function PdfDropzone() {
-  const [pdfFile, setPdfFile] = useState(null);
-  const [viewerVisible, setViewerVisible] = useState(false);
-
-  const onDrop = (acceptedFiles) => {
+export default function PdfDropzone(props) {
+  const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
-      const file = acceptedFiles[0];
-      setPdfFile(URL.createObjectURL(file));
-      setViewerVisible(true);
+      const reader = new FileReader();
+      reader.readAsDataURL(acceptedFiles[0]);
+      reader.onload = () => {
+        let arr = [];
+        let base64 = reader.result;
+        arr = base64.split(",");
+        handleAddItem({
+          docname: acceptedFiles[0].name,
+          documento: base64,
+          fecha: acceptedFiles[0].lastModifiedDate,
+        });
+      };
     }
-  };
+  });
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop,accept: { "application/pdf": [] } });
+  const { getRootProps, getInputProps, acceptedFiles, fileRejections } =
+    useDropzone({
+      onDrop,
+      accept: { "application/pdf": [] },
+      maxFiles: 1,
+    });
 
-  if (pdfFile) {
-    return (
-      <div className="viewer-container">
-        <div className="viewer-title"></div>
-      </div>
-    );
-  }
+  const fileRejectionItems = fileRejections.map(({ file, errors }) => (
+    <li key={file.path}>
+      {file.path} - {file.size} bytes
+      <ul>
+        {errors.map((e) => (
+          <li key={e.code}>{e.message}</li>
+        ))}
+      </ul>
+    </li>
+  ));
+
+  const { handleAddItem } = props;
 
   return (
     <div
@@ -36,35 +50,41 @@ export default function PdfDropzone() {
         marginRight: "20px",
       }}
     >
-      <Typography
-        align="left"
-        style={{
-          backgroundColor: "#48c1f4",
-          color: "white",
-          borderTopLeftRadius: "6px",
-          borderTopRightRadius: "6px",
-        }}
-      >
-        Visor de PDF
-      </Typography>
+      {fileRejectionItems.length !== 0 ? (
+        <div>Máximo número de archivos: 1</div>
+      ) : null}
+      <div className="dropzone-container">
+        <div
+          className="dropzone-title"
+          style={{
+            backgroundColor: "#48c1f4",
+            color: "white",
+            borderTopLeftRadius: "13px",
+            borderTopRightRadius: "13px",
+          }}
+        >
+          <Typography align="left" marginLeft={2} paddingTop={1} paddingBottom={1}>Visor de PDF</Typography>
+        </div>
+      </div>
       <div
         {...getRootProps()}
         style={{
           height: "200px",
           border: "2px solid #a6dced",
-          borderBottomLeftRadius: "6px",
-          borderBottomRightRadius: "6px",
+          borderBottomLeftRadius: "13px",
+          borderBottomRightRadius: "13px",
           backgroundColor: "#00ffff",
         }}
       >
         <input {...getInputProps()} />
         <div
-          classname="dropbox-text"
+          className="dropbox-text"
           style={{
             marginTop: "30px",
+            textAlign: "center",
           }}
         >
-          <img src={cloudImg} width={45} height={45} color="#646464" />
+          <CloudUploadIcon sx={{ color: "#808080", fontSize: "60px" }} />
           <Typography style={{ color: "#808080" }}>
             Arrastra y suelta un archivo PDF aquí, o haz clic para seleccionar
             uno.
