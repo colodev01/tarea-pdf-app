@@ -51,7 +51,7 @@ export default function PdfDropzone(props) {
       }}
     >
       {fileRejectionItems.length !== 0 ? (
-        <div>Máximo número de archivos: 1</div>
+        <div>Solo se permiten archivos PDF</div>
       ) : null}
       <div className="dropzone-container">
         <div
@@ -70,10 +70,10 @@ export default function PdfDropzone(props) {
         {...getRootProps()}
         style={{
           height: "200px",
-          border: "2px solid #a6dced",
+          border: "2px solid #d1ebf7",
           borderBottomLeftRadius: "13px",
           borderBottomRightRadius: "13px",
-          backgroundColor: "#00ffff",
+          backgroundColor: "#d6ffff",
         }}
       >
         <input {...getInputProps()} />
