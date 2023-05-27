@@ -10,6 +10,11 @@ function App() {
   const handleAddItem = (addItem) => {
     setPdf([...pdf, addItem]);
   };
+  /*
+  -> Renderizado condicional: si no existe un pdf en el cliente, se
+  renderiza el dropzone, de caso contrario se renderiza el visor
+  junto a la lista de mails con el pdf adjunto.
+  */
   return (
     <div className='main'>
       <Navbar/>
@@ -20,6 +25,7 @@ function App() {
       )} 
     </div>
   );
+
 } 
 
 export default App;
